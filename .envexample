@@ -1,3 +1,5 @@
 base_url=https://api.siliconflow.cn/v1
 api_key=sk-xxx
 model_name=deepseek-ai/DeepSeek-V4.1-Flash
+secondary_model_name=Qwen/Qwen3.8-27B
+tertiary_model_name=Pro/moonshotai/Kimi-K2.6
