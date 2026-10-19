@@ -19,7 +19,7 @@ dependencies = [
     { name = "python-dotenv" },
     { name = "python-magic" },
     { name = "python-magic-bin" },
-    { name = "unstructured", extra = ["md"] },
+    { name = "unstructured", extra = ["docx", "md"] },
 ]
 
 [package.dev-dependencies]
@@ -37,7 +37,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.4" },
     { name = "python-magic", specifier = ">=0.4.27" },
     { name = "python-magic-bin", specifier = ">=0.4.14" },
-    { name = "unstructured", extras = ["md"], specifier = ">=0.27.28" },
+    { name = "unstructured", extras = ["docx", "md"], specifier = ">=0.27.28" },
 ]
 
 [package.metadata.requires-dev]
@@ -2342,6 +2342,19 @@ wheels = [
 ]
 
 [[package]]
+name = "python-docx"
+version = "1.2.0"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
+dependencies = [
+    { name = "lxml" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/a9/f7/eddfe33871520adab45aaa1a71f0402a2252050c14c7e3009446c8f4701c/python_docx-1.2.0.tar.gz", hash = "sha256:7bc9d7b7d8a69c9c02ca09216118c86552704edc23bac179283f2e38f86220ce" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/d0/00/1e03a4989fa5795da308cd774f05b704ace555a70f9bf9d3be057b680bcf/python_docx-1.2.0-py3-none-any.whl", hash = "sha256:3fd478f3250fbbbfd3b94fe1e985955737c145627498896a8a6bf81f4baf66c7" },
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.2.4"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
@@ -3285,6 +3298,9 @@ wheels = [
 ]
 
 [package.optional-dependencies]
+docx = [
+    { name = "python-docx" },
+]
 md = [
     { name = "markdown" },
 ]
