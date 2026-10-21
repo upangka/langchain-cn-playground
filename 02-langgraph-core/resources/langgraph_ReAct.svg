@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650" width="100%" height="100%">
+  <defs>
+    <!-- 定义节点阴影 -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    
+    <!-- 定义箭头 -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#868e96" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f76707" />
+    </marker>
+
+    <!-- 全局字体 -->
+    <style>
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 500; text-anchor: middle; dominant-baseline: central; }
+      .text-bold { font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="100%" height="100%" fill="#ffffff" />
+
+  <g transform="translate(400, 50)">
+    
+    <!-- 连线 (放在底层) -->
+    <!-- Start -> Input -->
+    <line x1="0" y1="20" x2="0" y2="80" stroke="#868e96" stroke-width="2" marker-end="url(#arrow)" />
+    <!-- Input -> LLM -->
+    <line x1="0" y1="120" x2="0" y2="180" stroke="#868e96" stroke-width="2" marker-end="url(#arrow)" />
+    
+    <!-- LLM -> Answer (右虚线) -->
+    <path d="M 70 220 L 170 220 L 170 280" fill="none" stroke="#f76707" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow-orange)" />
+    <text x="140" y="210" class="text" fill="#f76707" style="font-size: 12px;">(条件分支)</text>
+
+    <!-- LLM -> Tool (左虚线) -->
+    <path d="M -70 220 L -170 220 L -170 280" fill="none" stroke="#f76707" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow-orange)" />
+    <text x="-140" y="210" class="text" fill="#f76707" style="font-size: 12px;">(调用工具)</text>
+
+    <!-- Tool -> LLM (左侧循环) -->
+    <path d="M -220 320 L -270 320 L -270 220 L -70 220" fill="none" stroke="#868e96" stroke-width="2" marker-end="url(#arrow)" />
+    
+    <!-- Answer -> End -->
+    <line x1="170" y1="320" x2="170" y2="380" stroke="#868e96" stroke-width="2" marker-end="url(#arrow)" />
+
+
+    <!-- 节点 (放在顶层) -->
+    
+    <!-- Start 节点 -->
+    <rect x="-40" y="-10" width="80" height="30" rx="15" fill="#e3fafc" stroke="#15aabf" stroke-width="2" filter="url(#shadow)" />
+    <text x="0" y="5" class="text text-bold" fill="#0b7285">Start</text>
+
+    <!-- Input 节点 -->
+    <rect x="-50" y="80" width="100" height="40" rx="8" fill="#f8f9fa" stroke="#ced4da" stroke-width="2" filter="url(#shadow)" />
+    <text x="0" y="100" class="text" fill="#495057">input_node</text>
+
+    <!-- LLM 节点 (菱形) -->
+    <polygon points="0,180 70,220 0,260 -70,220" fill="#fff4e6" stroke="#f76707" stroke-width="2" filter="url(#shadow)" />
+    <text x="0" y="220" class="text text-bold" fill="#d9480f">llm_node</text>
+
+    <!-- Tool 节点 -->
+    <rect x="-220" y="280" width="100" height="40" rx="8" fill="#ebfbee" stroke="#37b24d" stroke-width="2" filter="url(#shadow)" />
+    <text x="-170" y="300" class="text" fill="#2b8a3e">tool_node</text>
+
+    <!-- Answer 节点 -->
+    <rect x="120" y="280" width="100" height="40" rx="8" fill="#f3f0ff" stroke="#7950f2" stroke-width="2" filter="url(#shadow)" />
+    <text x="170" y="300" class="text" fill="#5f3dc4">answer_node</text>
+
+    <!-- End 节点 -->
+    <rect x="130" y="380" width="80" height="30" rx="15" fill="#e3fafc" stroke="#15aabf" stroke-width="2" filter="url(#shadow)" />
+    <text x="170" y="395" class="text text-bold" fill="#0b7285">End</text>
+
+  </g>
+</svg>
