@@ -5,6 +5,11 @@ sudo service docker start
 12346
 ```
 
+
+# 扩展: Python知识
+
+[appendix-python-basic README](./appendix-python-basic/README.md)
+
 # Resource
 
 [langchain](https://docs.langchain.com/oss/python/langchain/overview)

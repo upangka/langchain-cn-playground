@@ -14,11 +14,25 @@ def worker(task_id: int) -> tuple[int, int]:
     return pid, task_id
 
 
-if __name__ == "__main__":
+def done_cb(f):
+    # print(type(f), f.result())
+    pid, task_id = f.result()
+    logger.info(f"进程[{pid}] 完成task-{task_id}")
+
+
+def demo1():
+    """演示
+    1. 进程池ProcessPoolExecutor
+    2. Future
+    3. as_completed
+    4. call back function: add_done_callback
+    """
     process_pool = ProcessPoolExecutor(max_workers=3)
     futures = []
     for i in range(1, 11):
-        futures += [process_pool.submit(worker, i)]
+        f = process_pool.submit(worker, i)
+        f.add_done_callback(done_cb)
+        futures.append(f)
 
     # 统计每个pid都执行了哪些task
     pid_stats = defaultdict(list)
@@ -32,23 +46,44 @@ if __name__ == "__main__":
     for pid, task_ids in pid_stats.items():
         logger.info(f"PID: {pid} -> 处理任务: {task_ids}")
 
-    logger.info("MAIN OVER")
+    logger.info("DEMO1 OVER")
 
 
-"""
-15:29:36| INFO | __mp_main__:worker:13 - task-1 被分配到 17996 执行
-15:29:36| INFO | __mp_main__:worker:13 - task-2 被分配到 788 执行
-15:29:37| INFO | __mp_main__:worker:13 - task-4 被分配到 17996 执行
-15:29:37| INFO | __mp_main__:worker:13 - task-3 被分配到 16572 执行
-15:29:37| INFO | __mp_main__:worker:13 - task-5 被分配到 788 执行
-15:29:38| INFO | __mp_main__:worker:13 - task-6 被分配到 17996 执行
-15:29:38| INFO | __mp_main__:worker:13 - task-8 被分配到 788 执行
-15:29:38| INFO | __mp_main__:worker:13 - task-9 被分配到 17996 执行
-15:29:38| INFO | __mp_main__:worker:13 - task-7 被分配到 16572 执行
-15:29:39| INFO | __mp_main__:worker:13 - task-10 被分配到 788 执行
-15:29:39| INFO | __main__:<module>:31 - === 任务统计结果 ===
-15:29:39| INFO | __main__:<module>:33 - PID: 17996 -> 处理任务: [1, 4, 6, 9]
-15:29:39| INFO | __main__:<module>:33 - PID: 788 -> 处理任务: [2, 5, 8, 10]
-15:29:39| INFO | __main__:<module>:33 - PID: 16572 -> 处理任务: [3, 7]
-15:29:39| INFO | __main__:<module>:34 - MAIN OVER
-"""
+def demo2():
+    """演示
+    1. map
+    2. 得到的结果是严格按照顺序的
+    [(8384, 1), (5960, 2), (16524, 3), (8384, 4), (16524, 5), (5960, 6), (8384, 7), (5960, 8), (8384, 9), (16524, 10)]
+    """
+    process_pool = ProcessPoolExecutor(max_workers=3)
+
+    results = process_pool.map(worker, [i for i in range(1, 11)])
+    logger.info(f"{results=}")
+
+    # 遍历生成器获得真实的结果
+    final_data = list(results)
+    logger.info(f"最终的结果: {final_data}")
+
+    process_pool.shutdown(wait=True)
+    logger.info("DEMO2 OVER")
+
+
+def demo3():
+    """演示
+    1. with block 优化demo2
+    """
+    with ProcessPoolExecutor(max_workers=3) as process_pool:
+        results = process_pool.map(worker, [i for i in range(1, 11)])
+        logger.info(f"{results=}")
+
+        # 遍历生成器获得真实的结果
+        final_data = list(results)
+        logger.info(f"最终的结果: {final_data}")
+
+    logger.info("DEMO3 OVER")
+
+
+if __name__ == "__main__":
+    # demo1()
+    # demo2()
+    demo3()
