@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "aiohttp>=3.14.5",
     "deepagents>=0.7.29",
     "flagembedding>=1.4.2",
     "grandalf>=0.8",
@@ -23,6 +24,7 @@ dependencies = [
     "python-dotenv>=1.2.4",
     "python-magic>=0.4.27",
     "python-magic-bin>=0.4.14",
+    "requests>=2.34.2",
     "sentence-transformers>=6.1.0",
     "torch>=2.14.1",
     "unstructured[docx,md]>=0.27.28",
