@@ -1,6 +1,9 @@
+# Python 基础进阶：并发编程与高级特性 (Appendix Python Basic)
+
+本项目主要记录了 Python 基础进阶阶段的核心知识点，重点涵盖了**进程 (Process)**、**线程 (Thread)**、**协程 (Coroutine)** 三大并发编程模型，以及 Python 中的高级语法特性。
+
+
 # 进程Process
-
-
 
 | 核心知识点 | 文件名 |
 | :--- | :--- |
@@ -23,3 +26,10 @@
 
 
 # 协程Coroutine
+
+| 核心知识点 | 文件名 |
+| :--- | :--- |
+| **协程基础概念** | [01_coroutine_basic.py](./coroutine/01_coroutine_basic.py) |
+| **协程并发执行** | [02_concurrent.py](./coroutine/02_concurrent.py) |
+| **同步 vs 异步 HTTP 请求 (Notebook)** | [03_sync_vs_async_http.ipynb](./coroutine/03_sync_vs_async_http.ipynb) |
+| **同步 vs 异步 HTTP 请求** | [03_sync_vs_async_http.py](./coroutine/03_sync_vs_async_http.py) |
