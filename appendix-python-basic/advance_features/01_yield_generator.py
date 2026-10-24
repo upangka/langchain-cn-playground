@@ -1,3 +1,7 @@
+"""
+生成器
+"""
+
 from loguru import logger
 
 
